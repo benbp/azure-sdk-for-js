@@ -96,9 +96,6 @@ function GenerateMatrix(
 ) {
     $matrixParameters, $importedMatrix, $combinedDisplayNameLookup = `
             ProcessImport $config.matrixParameters $selectFromMatrixType $nonSparseParameters $config.displayNamesLookup
-    if ($null -eq $combinedDisplayNameLookup) {
-        throw "FOOBAR"
-    }
     if ($selectFromMatrixType -eq "sparse") {
         $matrix = GenerateSparseMatrix $matrixParameters $config.displayNamesLookup $nonSparseParameters
     } elseif ($selectFromMatrixType -eq "all") {
