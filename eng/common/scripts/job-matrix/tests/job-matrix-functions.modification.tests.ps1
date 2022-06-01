@@ -543,7 +543,7 @@ Describe "Platform Matrix Replace" -Tag "replace" {
         $matrix[1].parameters.Bar | Should -Be "bar1"
     }
 
-    It "Should parse replacement syntax and preserve imported display filter with special characters" {
+    It "Should parse replacement syntax and source imported display name lookups" {
         $matrixJson = @'
 {
   "displayNames": {
