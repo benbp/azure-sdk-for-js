@@ -117,7 +117,7 @@ function GenerateMatrix(
     }
 
     $matrix = FilterMatrix $matrix $filters
-    $matrix = ProcessReplace $matrix $replace $config.displayNamesLookup
+    $matrix = ProcessReplace $matrix $replace $combinedDisplayNameLookup
     $matrix = FilterMatrixDisplayName $matrix $displayNameFilter
     return $matrix
 }
@@ -370,7 +370,7 @@ function ProcessImport([MatrixParameter[]]$matrix, [String]$selection, [Array]$n
         $combinedDisplayNameLookup[$lookup.Name] = $lookup.Value
     }
 
-    return $matrix, $importedMatrix, $importedMatrixConfig.displayNamesLookup
+    return $matrix, $importedMatrix, $combinedDisplayNameLookup
 }
 
 function CombineMatrices([Array]$matrix1, [Array]$matrix2, [Hashtable]$displayNamesLookup = @{})

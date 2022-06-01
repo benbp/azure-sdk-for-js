@@ -542,4 +542,30 @@ Describe "Platform Matrix Replace" -Tag "replace" {
         $matrix[1].parameters.Foo | Should -Be "foo2"
         $matrix[1].parameters.Bar | Should -Be "bar1"
     }
+
+    It -Tag bbp "Should parse replacement syntax and preserve display filter with special characters" {
+        $matrixJson = @'
+{
+  "displayNames": {
+    "**/replaceme.txt": ""
+  },
+  "matrix": {
+    "Foo": [ "foo1", "foo2" ],
+    "Bar": [ "bar1", "bar2" ],
+    "DisplayReplace": "**/replaceme.txt"
+  }
+}
+'@
+        $importConfig = GetMatrixConfigFromJson $matrixJson
+        $replace = 'Foo=(foo)1/$1ReplacedFoo1', 'B.*=(.*)2/$1ReplacedBar2'
+        $matrix = GenerateMatrix $importConfig "sparse" -replace $replace
+
+        $matrix.Length | Should -Be 2
+        $matrix[0].name | Should -Be "fooReplacedFoo1_bar1"
+        $matrix[0].parameters.Foo | Should -Be "fooReplacedFoo1"
+
+        $matrix[1].name | Should -Be "foo2_barReplacedBar2"
+        $matrix[1].parameters.Bar | Should -Be "barReplacedBar2"
+    }
+
 }
