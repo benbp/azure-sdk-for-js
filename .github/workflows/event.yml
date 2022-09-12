@@ -6,7 +6,7 @@ on:
   issue_comment:
     types: [created]
 
-# Test
+# Test 2
 jobs:
   event-handler:
     name: Handle ${{ github.event_name }} ${{ github.event.action }} event
